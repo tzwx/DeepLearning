@@ -33,7 +33,7 @@ def get_final_preds(batch_heatmaps, center, scale): # heatmap [batch,channel,wid
     # Transform back
     for i in range(coords.shape[0]):
         preds[i] = transform_preds(coords[i], center[i], scale[i],
-                                   [heatmap_width, heatmap_height])
+                                   [heatmap_width, heatmap_height]) 
 
     return preds, maxvals
 
@@ -154,3 +154,23 @@ def _xywh2cs(x, y, w, h, image_width, image_height):
         scale = scale * 1.25
 
     return center, scale
+
+    ## 使用示范：
+
+  #   if __name_- == '__main__':
+
+  #   	image_test_origin = im[52][0]
+		# image_test_data = cv2.imread(image_test_origin)
+		# heatmap = heatmaps[0][1][0] # (15, 45, 45)
+		
+		# # cv2.imwrite('./heatmap1.jpg', heatmap[2, :, :] * 255)
+		# heatmap = heatmap[np.newaxis,:,:,:]
+		# c, s = _box2cs(bbox[0][1], image_test_data.shape[0], image_test_data.shape[1])
+		# preds, maxvals = get_final_preds(
+		#             heatmap, np.asarray([c]), np.asarray([s]))
+		
+		# image_data = image_test_data.copy()
+		# for mat in preds[0]:
+		#     x, y = int(mat[0]), int(mat[1])
+		#     cv2.circle(image_data, (x, y), 2, (255, 0, 0), 2)
+		# cv2.imwrite('./vistest_10.jpg', image_data)
